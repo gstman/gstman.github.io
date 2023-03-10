@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="x5-fullscreen" content="true">
+<meta name="full-screen" content="yes">
+<meta name="theme-color" content="#317EFB" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
+<meta name="description" content="准备内容能正常用的旧手机一个新手机也行 termux软件 一个域名freenom有免费的 一个cloudflare账号并且代理域名 termux安装Linux我演示的手机是安卓11  安装好之后打开termux  安装opensssh手机不好操作，所以选择用ssh，感觉自己可以手机操作的可以不装，或者想安装其它ssh的也一样 打开软件以后输入pkg install openssh这里忘了截图了 安">
+<meta property="og:type" content="article">
+<meta property="og:title" content="闲置旧手机搭建web服务，并用cloudflaerd内网穿透，可域名访问">
+<meta property="og:url" content="http://example.com/2023/03/10/1/index.html">
+<meta property="og:site_name" content="zhh.blog">
+<meta property="og:description" content="准备内容能正常用的旧手机一个新手机也行 termux软件 一个域名freenom有免费的 一个cloudflare账号并且代理域名 termux安装Linux我演示的手机是安卓11  安装好之后打开termux  安装opensssh手机不好操作，所以选择用ssh，感觉自己可以手机操作的可以不装，或者想安装其它ssh的也一样 打开软件以后输入pkg install openssh这里忘了截图了 安">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="article:published_time" content="2023-03-10T06:49:31.539Z">
+<meta property="article:modified_time" content="2023-03-10T07:02:54.323Z">
+<meta property="article:author" content="zhh">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/404.jpg">
+
+
+<title >闲置旧手机搭建web服务，并用cloudflaerd内网穿透，可域名访问</title>
+
+<!-- Favicon -->
+
+    <link href='/img/favicon.png?v=2.0.3' rel='icon' type='image/png' sizes='16x16' ></link>
+
+
+    <link href='/img/favicon.png?v=2.0.3' rel='icon' type='image/png' sizes='32x32' ></link>
+
+
+    <link href='/img/favicon.png?v=2.0.3' rel='apple-touch-icon' sizes='180x180' ></link>
+
+
+    <link href='/site.webmanifest' rel='manifest' ></link>
+
+
+<!-- Plugin -->
+
+
+
+
+    
+<link rel="stylesheet" href="/css/plugins/bootstrap.row.css">
+
+    
+<link rel="stylesheet" href="https://unpkg.com/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.css">
+
+    
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.css">
+
+    
+    
+
+
+
+
+<!-- Icon -->
+
+    
+<link rel="stylesheet" href="/css/plugins/font-awesome.min.css">
+
+
+
+
+<!-- Variable -->
+<script>window.ASYNC_CONFIG = {"hostname":"example.com","author":"zhh","root":"/","typed_text":["Web Developer"],"theme_version":"2.0.3","theme":{"switch":true,"default":"auto"},"favicon":{"logo":"/img/favicon.png","icon16":"/img/favicon.png","icon32":"/img/favicon.png","appleTouchIcon":"/img/favicon.png","webmanifest":"/site.webmanifest","visibilitychange":true,"hidden":"failure.ico","showText":"(/≧▽≦/)咦！又好了！","hideText":"(●—●)喔哟，崩溃啦！"},"i18n":{"placeholder":"搜索...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","user_tag":"fas fa-user-alt","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"mac","height_limit":200}};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2023-03-10 15:02:54"};</script>
+
+<!-- Theme mode css -->
+<link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.0.3" id="trm-switch-style">
+<script>
+    let defaultMode = ASYNC_CONFIG.theme.default !=='auto' ?  ASYNC_CONFIG.theme.default : (window.matchMedia("(prefers-color-scheme: light)").matches ? 'style-light' : 'style-dark')
+    let catchMode = localStorage.getItem('theme-mode') || defaultMode;
+    let type = catchMode === 'style-dark' ? 'add' : 'remove';
+    document.documentElement.classList[type]('dark')
+</script>
+
+<!-- CDN -->
+
+
+    
+    
+
+
+
+<!-- Site Analytics -->
+ 
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+
+  <!-- app wrapper -->
+  <div class="trm-app-frame">
+
+    <!-- page preloader -->
+    <div class="trm-preloader">
+    <div class="trm-holder">
+        <div class="preloader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+    <!-- page preloader end -->
+
+    <!-- change mode preloader -->
+    <div class="trm-mode-swich-animation-frame">
+    <div class="trm-mode-swich-animation">
+        <i class="i-sun"><i class="iconfont far fa-sun"></i></i>
+        <div class="trm-horizon"></div>
+        <i class="i-moon"><i class="iconfont far fa-moon"></i></i>
+    </div>
+</div>
+    <!-- change mode preloader end -->
+
+      <!-- scroll container -->
+      <div id="trm-dynamic-content" class="trm-swup-animation">
+        <div id="trm-scroll-container" class="trm-scroll-container" data-scroll-container style="opacity: 0">
+          <div data-scroll-section id="content" class="trm-scroll-section">
+
+            <div class="locomotive-scroll__sticky-target" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none;"></div>
+
+            <!-- top bar -->
+            <header class="trm-top-bar" data-scroll data-scroll-sticky data-scroll-target=".locomotive-scroll__sticky-target" data-scroll-offset="-10">
+	<div class="container">
+		<div class="trm-left-side">
+			<!-- logo -->
+<a href="/" class="trm-logo-frame trm-anima-link">
+    
+        <img alt="logo" src="/img/favicon.png">
+    
+    
+        <div class="trm-logo-text">
+            zhh<span>blog</span>
+        </div>
+    
+</a>
+<!-- logo end -->
+		</div>
+		<div class="trm-right-side">
+			<!-- menu -->
+<div class="trm-menu">
+    <nav>
+        <ul>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/" target="">
+                    首页
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/archives/" target="">
+                    归档
+                </a>
+                
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+<!-- menu end -->
+			
+    <!-- mode switcher place -->
+    <div class="trm-mode-switcher-place">
+        <div class="trm-mode-switcher">
+            <i class="iconfont far fa-sun"></i>
+            <input class="tgl tgl-light" id="trm-swich" type="checkbox">
+            <label class="trm-swich" for="trm-swich"></label>
+            <i class="iconfont far fa-moon"></i>
+        </div>
+    </div>
+    <!-- mode switcher place end -->
+
+			
+		</div>
+		<div class="trm-menu-btn">
+			<span></span>
+		</div>
+	</div>
+</header>
+            <!-- top bar end -->
+
+            <!-- body -->
+            
+<div class="trm-content-start">
+    <!-- banner -->
+    <div class="trm-banner" data-scroll data-scroll-direction="vertical">
+    
+    <!-- banner cover -->
+    <img style="object-position:top;object-fit:cover;" alt="banner" class="trm-banner-cover" data-scroll data-scroll-direction="vertical" data-scroll-speed="-3" src="/img/banner.png">
+    <!-- banner cover end -->
+    
+
+    <!-- banner content -->
+    <div class="trm-banner-content trm-overlay">
+        <div class="container" data-scroll data-scroll-direction="vertical" data-scroll-speed="0">
+            <div class="row">
+                
+                <div class="col-lg-4"></div>
+                
+                <div class="col-lg-8">
+
+                    <!-- banner title -->
+                    <div class="trm-banner-text ">
+                        <div class="trm-label trm-mb-20">
+                            NEWS LETTER
+                        </div>
+                        <h1 class="trm-mb-30 trm-hsmb-font">
+                            闲置旧手机搭建web服务，并用cloudflaerd内网穿透，可域名访问
+                        </h1>
+
+                        
+                            <ul class="trm-breadcrumbs trm-label">
+                                <li>
+                                    <a href="/" class="trm-anima-link">Home</a>
+                                </li>
+                                <li>
+                                    <span>
+                                        2023
+                                    </span
+                                ></li>
+                            </ul>
+                        
+                    </div>
+                    <!-- banner title end -->
+
+                    <!-- scroll hint -->
+                    <a href="#about-triger" data-scroll-to="#about-triger" data-scroll-offset="-130" class="trm-scroll-hint-frame">
+                        <div class="trm-scroll-hint"></div>
+                        <span class="trm-label">Scroll down</span>
+                    </a>
+                    <!-- scroll hint end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- banner content end -->
+</div>
+    <!-- banner end -->
+    <div class="container">
+        <div class="row">
+            
+                <div id="page-sidebar" class="col-lg-4 hidden-sm">
+                    <!-- main card -->
+                    
+
+<div class="trm-main-card-frame trm-sidebar">
+    <div class="trm-main-card" data-scroll data-scroll-repeat data-scroll-sticky data-scroll-target=".locomotive-scroll__sticky-target" data-scroll-offset="60"> 
+    
+        <div class="trm-user-tabs" id="sidebar-tabs">
+           <div class="trm-tabs-nav trm-mb-40" id="trm-tabs-nav">
+                <div data-to="tabs-user" class="trm-tabs-nav-item">
+                    <i class="iconfont fas fa-user-alt"></i>
+                </div>
+                <div data-to="tabs-toc" class="trm-tabs-nav-item active">
+                    <i class="iconfont fas fa-th-list"></i>
+                </div>
+           </div>
+            <div name="tabs-user" class="trm-tabs-item">
+                <!-- card header -->
+<div class="trm-mc-header">
+    <div class="trm-avatar-frame trm-mb-20">
+        <img alt="Avatar" class="trm-avatar" src="/img/ys.jpg">
+    </div>
+    <h5 class="trm-name trm-mb-15">
+        张浩欢
+    </h5>
+    
+        <div class="trm-label">
+            I`m
+            <span class="trm-typed-text">
+                <!-- Words for theme.user.typedText -->
+            </span>
+        </div>
+    
+</div>
+<!-- card header end -->
+                <!-- sidebar social -->
+
+<!-- sidebar social end -->
+                <!-- info -->
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<ul class="trm-table trm-mb-20">
+    
+        <li>
+            <div class="trm-label">
+                地址:
+            </div>
+            <div class="trm-label trm-label-light">
+                宝鸡
+            </div>
+        </li>
+    
+        <li>
+            <div class="trm-label">
+                年龄:
+            </div>
+            <div class="trm-label trm-label-light">
+                26
+            </div>
+        </li>
+    
+        <li>
+            <div class="trm-label">
+                性别:
+            </div>
+            <div class="trm-label trm-label-light">
+                男
+            </div>
+        </li>
+    
+</ul>
+<!-- info end -->
+
+                
+    <div class="trm-divider trm-mb-40 trm-mt-40"></div>
+    <!-- action button -->
+    <div class="text-center">
+        <a href="mailto:admin@zhanghaohuan.cf" class="trm-btn">
+            联系我
+            <i class="iconfont far fa-envelope"></i>
+        </a>
+    </div>
+    <!-- action button end -->
+
+            </div>
+            <div name="tabs-toc" class="trm-tabs-item active">
+                <div class="post-toc">
+    <ol class="toc"><li class="toc-item toc-level-1"><a rel="nofollow" class="toc-link" href="#准备内容"  data-scroll-to="#准备内容"><span class="toc-number">1.</span> <span class="toc-text">准备内容</span></a></li><li class="toc-item toc-level-1"><a rel="nofollow" class="toc-link" href="#termux安装Linux"  data-scroll-to="#termux安装Linux"><span class="toc-number">2.</span> <span class="toc-text">termux安装Linux</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a rel="nofollow" class="toc-link" href="#安装opensssh"  data-scroll-to="#安装opensssh"><span class="toc-number">2.0.1.</span> <span class="toc-text">安装opensssh</span></a></li><li class="toc-item toc-level-3"><a rel="nofollow" class="toc-link" href="#电脑连接ssh"  data-scroll-to="#电脑连接ssh"><span class="toc-number">2.0.2.</span> <span class="toc-text">电脑连接ssh</span></a></li><li class="toc-item toc-level-3"><a rel="nofollow" class="toc-link" href="#安装Linux"  data-scroll-to="#安装Linux"><span class="toc-number">2.0.3.</span> <span class="toc-text">安装Linux</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a rel="nofollow" class="toc-link" href="#安装web服务并启动"  data-scroll-to="#安装web服务并启动"><span class="toc-number">3.</span> <span class="toc-text">安装web服务并启动</span></a></li><li class="toc-item toc-level-1"><a rel="nofollow" class="toc-link" href="#安装cloudflared"  data-scroll-to="#安装cloudflared"><span class="toc-number">4.</span> <span class="toc-text">安装cloudflared</span></a></li><li class="toc-item toc-level-1"><a rel="nofollow" class="toc-link" href="#登录及创建隧道"  data-scroll-to="#登录及创建隧道"><span class="toc-number">5.</span> <span class="toc-text">登录及创建隧道</span></a></li><li class="toc-item toc-level-1"><a rel="nofollow" class="toc-link" href="#绑定域名"  data-scroll-to="#绑定域名"><span class="toc-number">6.</span> <span class="toc-text">绑定域名</span></a></li><li class="toc-item toc-level-1"><a rel="nofollow" class="toc-link" href="#写入配置文件"  data-scroll-to="#写入配置文件"><span class="toc-number">7.</span> <span class="toc-text">写入配置文件</span></a></li><li class="toc-item toc-level-1"><a rel="nofollow" class="toc-link" href="#启动服务"  data-scroll-to="#启动服务"><span class="toc-number">8.</span> <span class="toc-text">启动服务</span></a></li><li class="toc-item toc-level-1"><a rel="nofollow" class="toc-link" href="#测试是否成功"  data-scroll-to="#测试是否成功"><span class="toc-number">9.</span> <span class="toc-text">测试是否成功</span></a></li><li class="toc-item toc-level-1"><a rel="nofollow" class="toc-link" href="#其它"  data-scroll-to="#其它"><span class="toc-number">10.</span> <span class="toc-text">其它</span></a></li></ol>
+</div>
+            </div>
+        </div>
+    
+    </div>
+</div>
+                    <!-- main card end -->
+                </div>
+            
+            <div id="page-content" class="col-lg-8">
+                <div class="trm-content" id="trm-content">
+                    <div data-scroll data-scroll-repeat data-scroll-offset="500" id="about-triger"></div>
+
+                    <div id="post-info" class="row hidden-sm">
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
+            03/10
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-clock trm-icon"></i><br>
+            14:49
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div id="post-author" class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-user trm-icon"></i><br>
+            zhh
+        </div>
+    </div>
+</div>
+<div class="trm-card ">
+    <article id="article-container" class="trm-publication">
+    <h1 id="准备内容"><a href="#准备内容" class="headerlink" title="准备内容"></a>准备内容</h1><p>能正常用的旧手机一个<del>新手机也行</del></p>
+<p>termux软件</p>
+<p>一个域名<del>freenom有免费的</del></p>
+<p>一个cloudflare账号并且代理域名</p>
+<h1 id="termux安装Linux"><a href="#termux安装Linux" class="headerlink" title="termux安装Linux"></a>termux安装Linux</h1><p>我演示的手机是安卓11</p>
+<p><img src="https://file.fishpi.cn/2022/12/Screenshot20221215153446%E8%AE%BE%E7%BD%AE-1066625f.png" alt="Screenshot_20221215-153446_设置.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'><img src="https://file.fishpi.cn/2022/12/Screenshot20221215153437Android%E7%B3%BB%E7%BB%9F-4a978942.png" alt="Screenshot_20221215-153437_Android_系统.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'><img src="https://file.fishpi.cn/2022/12/Screenshot20211217021318Pixel%E5%90%AF%E5%8A%A8%E5%99%A8-055754b2.png" alt="Screenshot_20211217-021318_Pixel_启动器.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>安装好之后打开termux</p>
+<p><img src="https://file.fishpi.cn/2022/12/Screenshot20211217021336Termux-c829bf25.png" alt="Screenshot_20211217-021336_Termux.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h3 id="安装opensssh"><a href="#安装opensssh" class="headerlink" title="安装opensssh"></a>安装opensssh</h3><p>手机不好操作，所以选择用ssh，感觉自己可以手机操作的可以不装，或者想安装其它ssh的也一样</p>
+<p>打开软件以后输入<code>pkg install openssh</code>这里忘了截图了</p>
+<p>安装完后输入<code>passwd</code>设置密码</p>
+<p>然后输入<code>sshd</code>启动openssh</p>
+<p>输入<code>whoami</code>获取用户名</p>
+<p><img src="https://file.fishpi.cn/2022/12/Screenshot20221214150646Termux-a6e85064.png" alt="Screenshot_20221214-150646_Termux.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>输入<code>ifconfig</code>获取IP地址</p>
+<h3 id="电脑连接ssh"><a href="#电脑连接ssh" class="headerlink" title="电脑连接ssh"></a>电脑连接ssh</h3><p>端口是ssh服务的端口，openssh的默认端口是8022</p>
+<p>电脑上用<code>ssh -p 端口 前面获取的用户名@ip地址</code>连接</p>
+<p><img src="https://file.fishpi.cn/2022/12/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%8720221215161630-171c6bc6.png" alt="微信图片_20221215161630.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h3 id="安装Linux"><a href="#安装Linux" class="headerlink" title="安装Linux"></a>安装Linux</h3><p>连上以后输入<code>bash &lt;(curl -L gitee.com/mo2/linux/raw/2/2)</code>安装Linux</p>
+<p>自己有其它的安装方法也行，如果是其它方法，可以跳过这里</p>
+<p><img src="https://file.fishpi.cn/2022/12/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%8720221215161848-0310d5e9.png" alt="微信图片_20221215161848.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>这里选择第一个proot容器</p>
+<p>可能会再显示选择容器那个界面，具体在哪我没截到，继续选择第一个proot容器就行</p>
+<p><img src="https://file.fishpi.cn/2022/12/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%8720221215161953-34d4aefd.png" alt="微信图片_20221215161953.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>这里选择第一个neon</p>
+<p><img src="https://file.fishpi.cn/2022/12/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%8720221215162139-1f3e61f8.png" alt="微信图片_20221215162139.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>字体这里随便选，按自己喜好来</p>
+<p><img src="https://file.fishpi.cn/2022/12/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%8720221215162316-e571f66c.png" alt="微信图片_20221215162316.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>选第一个</p>
+<p><img src="https://file.fishpi.cn/2022/12/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%8720221215162347-42d91890.png" alt="微信图片_20221215162347.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>选第一个</p>
+<p><img src="https://file.fishpi.cn/2022/12/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%8720221215162408-27163066.png" alt="微信图片_20221215162408.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>这里看你想用哪种Linux，不过cloudflare官方文档只支持几种Linux</p>
+<p><img src="https://file.fishpi.cn/2022/12/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%8720221215162431-a16dd67d.png" alt="微信图片_20221215162431.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="https://file.fishpi.cn/2022/12/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%8720221215162639-96dbaf33.png" alt="微信图片_20221215162639.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>后面随便点点就行了</p>
+<p>我建议在这个界面安装一个vnc，因为后面cloudflare有需要浏览器登陆，需要图形界面</p>
+<p><img src="https://file.fishpi.cn/2022/12/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%8720221215163052-966f0c24.png" alt="微信图片_20221215163052.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="https://file.fishpi.cn/2022/12/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%8720221215163108-de584e77.png" alt="微信图片_20221215163108.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="https://file.fishpi.cn/2022/12/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%8720221215163134-d60c860e.png" alt="微信图片_20221215163134.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h1 id="安装web服务并启动"><a href="#安装web服务并启动" class="headerlink" title="安装web服务并启动"></a>安装web服务并启动</h1><p>自己百度</p>
+<h1 id="安装cloudflared"><a href="#安装cloudflared" class="headerlink" title="安装cloudflared"></a>安装cloudflared</h1><p>进入<a target="_blank" rel="noopener" href="https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/install-and-setup/installation/%E6%A0%B9%E6%8D%AE%E8%87%AA%E5%B7%B1%E7%9A%84%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E9%80%89%E6%8B%A9">https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/install-and-setup/installation/根据自己的操作系统选择</a></p>
+<p><img src="https://file.fishpi.cn/2022/12/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%8720221215163512-b16fb2b9.png" alt="微信图片_20221215163512.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>如果不知道选哪个，点cloudflare package repository</p>
+<p><img src="https://file.fishpi.cn/2022/12/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%8720221215162639-991d27b7.png" alt="微信图片_20221215162639.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>根据自己操作系统选择，按照官方文档输入命令  <del>这里忘了截图</del></p>
+<h1 id="登录及创建隧道"><a href="#登录及创建隧道" class="headerlink" title="登录及创建隧道"></a>登录及创建隧道</h1><p>然后打开远程桌面连接</p>
+<p><img src="https://file.fishpi.cn/2022/12/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%8720221215163959-359df071.png" alt="微信图片_20221215163959.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>在终端中输入<code>cloudflared tunnel login</code></p>
+<p><img src="https://file.fishpi.cn/2022/12/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%8720221215164040-b5d3d73b.png" alt="微信图片_20221215164040.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>会出现一个链接，点击链接登录</p>
+<p><img src="https://file.fishpi.cn/2022/12/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%8720221215164244-a121c9ee.png" alt="微信图片_20221215164244.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="https://file.fishpi.cn/2022/12/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%8720221215164255-d9fc89dc.png" alt="微信图片_20221215164255.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>登录了以后再在终端点击链接打开，选择自己的那个域名就行</p>
+<p>vnc比较卡，现在回到ssh终端，输入<code>cloudflared tunnel create 隧道名</code>创建隧道，隧道名随便起<img src="https://file.fishpi.cn/2022/12/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%8720221215164726-fb6ced88.png" alt="微信图片_20221215164726.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>然后输入<code>cloudflared tunnel list</code>看速到是否建立成功，并且复制隧道的ID值</p>
+<h1 id="绑定域名"><a href="#绑定域名" class="headerlink" title="绑定域名"></a>绑定域名</h1><p>然后输入<code>cloudflared tunnel route dns 隧道名 域名</code>绑定</p>
+<p>隧道名就是刚才创建的隧道，域名就是你自己的域名</p>
+<p><img src="https://file.fishpi.cn/2022/12/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%8720221215165309-30f24095.png" alt="微信图片_20221215165309.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h1 id="写入配置文件"><a href="#写入配置文件" class="headerlink" title="写入配置文件"></a>写入配置文件</h1><p>输入<code>nano ~/.cloudflared/config.yml</code>写入以下配置</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">tunnel:</span> <span class="string">&lt;隧道ID&gt;</span></span><br><span class="line"><span class="attr">credentials-file:</span> <span class="string">/root/.cloudflared/&lt;隧道ID&gt;.json</span></span><br><span class="line"><span class="attr">protocol:</span> <span class="string">http2</span></span><br><span class="line"><span class="attr">originRequest:</span></span><br><span class="line">  <span class="attr">connectTimeout:</span> <span class="string">30s</span></span><br><span class="line">  <span class="attr">noTLSVerify:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">ingress:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">hostname:</span> <span class="string">&lt;域名&gt;</span></span><br><span class="line">    <span class="attr">service:</span> <span class="string">http://localhost:端口</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">service:</span> <span class="string">http_status:404</span></span><br></pre></td></tr></table></figure>
+
+<p>如果想开多个端口可以按下面图片里写</p>
+<p><img src="https://file.fishpi.cn/2022/12/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%8720221215165808-0600c9cc.png" alt="微信图片_20221215165808.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>保存后输入</p>
+<p><code>nano /etc/systemd/system/cloudflared.service</code></p>
+<p>写入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=cloudflared</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">TimeoutStartSec=0</span><br><span class="line">Type=notify</span><br><span class="line">ExecStart=/usr/bin/cloudflared --loglevel debug --transport-loglevel warn --config /root/.cloudflared/config.yml tunnel run &lt;隧道名称&gt;</span><br><span class="line">Restart=on-failure</span><br><span class="line">RestartSec=5s</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://file.fishpi.cn/2022/12/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%8720221215170228-c62783d5.png" alt="微信图片_20221215170228.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>注意没有换行</p>
+<p>保存</p>
+<h1 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h1><p>输入<code>systemctl enable cloudflared --now</code></p>
+<p><img src="https://file.fishpi.cn/2022/12/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%8720221215170328-222e2a25.png" alt="微信图片_20221215170328.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h1 id="测试是否成功"><a href="#测试是否成功" class="headerlink" title="测试是否成功"></a>测试是否成功</h1><p>打开网站看是否穿透成功</p>
+<p><img src="https://file.fishpi.cn/2022/12/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%8720221215170332-bdc5101e.png" alt="微信图片_20221215170332.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h1 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h1><p>还支持其它的服务，具体看文档</p>
+<p><a target="_blank" rel="noopener" href="https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/install-and-setup/tunnel-guide/local/local-management/ingress/">https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/install-and-setup/tunnel-guide/local/local-management/ingress/</a></p>
+<p><img src="https://file.fishpi.cn/2022/12/c657d87d50a86bfd998e5b6cdacdb45-79637eae.png" alt="c657d87d50a86bfd998e5b6cdacdb45.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>ssh访问需要设置本地终端</p>
+<p><a target="_blank" rel="noopener" href="https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/use_cases/ssh/">https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/use_cases/ssh/</a></p>
+<p><img src="https://file.fishpi.cn/2022/12/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%8720221215171444-38feae72.png" alt="微信图片_20221215171444.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>ssh浏览器访问需在cloudflare的zero面板设置，可以自己看文档，或者我另写一篇帖子</p>
+<p>实测termux启web服务，在Linux里也能穿透访问，所以应该不限于软件，手机装个ksweb可能也能穿</p>
+
+</article>
+    
+    
+</div>
+<div id="post-next-prev" class="row">
+    <div class="col-lg-12">
+        <!-- title -->
+        <h5 class="trm-title-with-divider">
+            其他文章
+            <span data-number="02"></span>
+        </h5>
+    </div>
+    
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation" data-scroll data-scroll-offset="40">
+        <a href="/2023/03/08/hello-world/" class="trm-cover-frame trm-anima-link">
+            
+            
+                <img alt="cover" class="no-fancybox" src="/img/block.jpg">
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" #.">
+                    未分类
+                </a>
+            </div>
+            <h5>
+                <a href="/2023/03/08/hello-world/" class="trm-anima-link">
+                    Hello World
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>23/03/08</li>
+                <li>18:25</li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+</div>
+
+    
+
+
+
+                    <div class="trm-divider footer-divider"></div>
+
+                    <!-- footer -->
+                    <footer class="trm-scroll-animation" data-scroll data-scroll-offset="50">
+
+    
+
+    
+        <div class="trm-footer-item">
+            <span>© 1997- 2023</span>
+            <span class="footer-separator"data-separator=" · "></span>
+            <span class="trm-accent-color">张浩欢</span>
+        </div>
+    
+
+    
+        <div class="trm-footer-item">
+            <span>
+                由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v5.4.2
+            </span>
+            <span class="footer-separator" data-separator=" | "></span>
+            <span> 
+                主题 - 
+                <a rel="noopener" href='https://github.com/MaLuns/hexo-theme-async' target='_blank'>Async</a>
+                v2.0.3
+            </span>
+        </div>
+      
+
+    
+        <div class="trm-footer-item">
+            博客已萌萌哒运行 <span id="since" class="trm-accent-color"></span> 天
+        </div>
+     
+
+     
+</footer>
+
+<script>
+    function show_date_time () {
+        var BirthDay = new Date("08/09/1997 00:00:00");
+        var today = new Date();
+        var timeold = (today.getTime() - BirthDay.getTime());
+        var msPerDay = 24 * 60 * 60 * 1000
+        var day = Math.floor(timeold / msPerDay)
+        since.innerHTML = day
+    }
+    show_date_time()
+</script>
+ 
+                    <!-- footer end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            <!-- body end -->
+
+            <div class="trm-fixed-container" data-scroll data-scroll-sticky data-scroll-target=".locomotive-scroll__sticky-target" data-scroll-offset="-10">
+    
+        <div class="trm-fixed-btn" data-title="阅读模式" onclick="asyncFun.switchReadMode()">
+            <i class="iconfont fas fa-book-reader"></i>
+        </div>
+    
+    
+    <div id="trm-back-top" class="trm-fixed-btn" data-title="回到顶部">
+        <i class="iconfont fas fa-arrow-up"></i>
+    </div>
+</div>
+          </div>
+        </div>
+      </div>
+      <!-- scroll container end -->
+
+  </div>
+  <!-- app wrapper end -->
+
+  
+  <!-- Plugin -->
+
+
+
+
+    
+    
+<script src="https://unpkg.com/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js"></script>
+
+    
+<script src="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+
+    
+
+    
+        <script src="/js/plugins/typing.js?v=2.0.3"></script>
+    
+
+    
+
+    <!-- 数学公式 -->
+    
+
+    <!-- 评论插件 -->
+    
+        
+
+        
+    
+
+
+
+<!-- CDN -->
+
+
+    
+
+    
+
+    
+
+
+
+
+    <!-- Service Worker -->
+    
+    <!-- baidu push -->
+    
+
+
+<script id="async-script" src="/js/main.js?v=2.0.3"></script>
+
+</body>
+
+</html>
