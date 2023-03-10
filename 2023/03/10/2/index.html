@@ -7,16 +7,35 @@
 <meta name="full-screen" content="yes">
 <meta name="theme-color" content="#317EFB" />
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
-<meta property="og:type" content="website">
-<meta property="og:title" content="zhh.blog">
-<meta property="og:url" content="http://example.com/index.html">
+<meta name="description" content="虽然上次用cloudflaerd穿透后何以远程ssh，但是需要下载文件配置本地文件，这样就显得很不方便 如果是别人的电脑，难道当着别人的面下文件改东西吗 所以这次我们来用cloudflare的浏览器ssh链接 首先登陆cloudflare，点击你的域名进入这个界面  点击Access  点击右边的Launch Zero Trust进入这个页面  点击Access的Applications，这里需要">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用cloudflare实现浏览器访问本地手机Linux">
+<meta property="og:url" content="http://example.com/2023/03/10/2/index.html">
 <meta property="og:site_name" content="zhh.blog">
+<meta property="og:description" content="虽然上次用cloudflaerd穿透后何以远程ssh，但是需要下载文件配置本地文件，这样就显得很不方便 如果是别人的电脑，难道当着别人的面下文件改东西吗 所以这次我们来用cloudflare的浏览器ssh链接 首先登陆cloudflare，点击你的域名进入这个界面  点击Access  点击右边的Launch Zero Trust进入这个页面  点击Access的Applications，这里需要">
 <meta property="og:locale">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="article:published_time" content="2023-03-10T07:20:19.485Z">
+<meta property="article:modified_time" content="2023-03-10T07:23:43.609Z">
 <meta property="article:author" content="zhh">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/404.jpg">
 
 
-<title >zhh.blog</title>
+<title >利用cloudflare实现浏览器访问本地手机Linux</title>
 
 <!-- Favicon -->
 
@@ -62,7 +81,7 @@
 
 <!-- Variable -->
 <script>window.ASYNC_CONFIG = {"hostname":"example.com","author":"zhh","root":"/","typed_text":["Web Developer"],"theme_version":"2.0.3","theme":{"switch":true,"default":"auto"},"favicon":{"logo":"/img/favicon.png","icon16":"/img/favicon.png","icon32":"/img/favicon.png","appleTouchIcon":"/img/favicon.png","webmanifest":"/site.webmanifest","visibilitychange":true,"hidden":"failure.ico","showText":"(/≧▽≦/)咦！又好了！","hideText":"(●—●)喔哟，崩溃啦！"},"i18n":{"placeholder":"搜索...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","user_tag":"fas fa-user-alt","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"mac","height_limit":200}};</script>
-<script id="async-page-config">window.PAGE_CONFIG = {"isPost":false,"isHome":true,"postUpdate":"2023-03-10 15:24:03"};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2023-03-10 15:23:43"};</script>
 
 <!-- Theme mode css -->
 <link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.0.3" id="trm-switch-style">
@@ -149,7 +168,7 @@
     <nav>
         <ul>
             
-            <li class="menu-item-has-children current-menu-item">
+            <li class="menu-item-has-children ">
                 <a  href="/" target="">
                     首页
                 </a>
@@ -189,16 +208,14 @@
             <!-- top bar end -->
 
             <!-- body -->
-            <div class="trm-content-start">
+            
+<div class="trm-content-start">
     <!-- banner -->
     <div class="trm-banner" data-scroll data-scroll-direction="vertical">
     
-    <!-- banner video cover -->
-    <video autoplay="autoplay" loop muted playsinline webkit-playinginline class="trm-banner-cover" data-scroll data-scroll-direction="vertical" data-scroll-speed="-3">
-        <source src="/img/spring20200311.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
-        Your browser does not support HTML5 video.
-    </video>
-    <!-- banner video cover end -->
+    <!-- banner cover -->
+    <img style="object-position:top;object-fit:cover;" alt="banner" class="trm-banner-cover" data-scroll data-scroll-direction="vertical" data-scroll-speed="-3" src="/img/banner.png">
+    <!-- banner cover end -->
     
 
     <!-- banner content -->
@@ -213,10 +230,10 @@
                     <!-- banner title -->
                     <div class="trm-banner-text ">
                         <div class="trm-label trm-mb-20">
-                            Hi my new friend!
+                            NEWS LETTER
                         </div>
                         <h1 class="trm-mb-30 trm-hsmb-font">
-                            大丈夫生居天地之间<br>岂能郁郁久居人下。
+                            利用cloudflare实现浏览器访问本地手机Linux
                         </h1>
 
                         
@@ -226,7 +243,7 @@
                                 </li>
                                 <li>
                                     <span>
-                                        index.html
+                                        2023
                                     </span
                                 ></li>
                             </ul>
@@ -334,57 +351,74 @@
                 <div class="trm-content" id="trm-content">
                     <div data-scroll data-scroll-repeat data-scroll-offset="500" id="about-triger"></div>
 
-                    <!-- categories -->
-
-    <div class="row hidden-sm">
-        
-        
-    </div>
-
-<!-- categories end -->
-
-<!-- newest publications -->
-<div class="row">
-    
-        <div class="col-lg-12">
-            <!-- title -->
-            <h5 class="trm-title-with-divider">
-                最近发布 
-                <span data-number="01"></span>
-            </h5>
+                    <div id="post-info" class="row hidden-sm">
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
+            03/10
         </div>
-    
-    
-        <div class="col-lg-6">
-    <div class="trm-blog-card trm-scroll-animation" data-scroll data-scroll-offset="40">
-        <a href="/2023/03/10/2/" class="trm-cover-frame trm-anima-link">
-            
-            
-                <img alt="cover" class="no-fancybox" src="/img/block.jpg">
-            
-        </a>
-        
-        <div class="trm-card-descr">
-            <div class="trm-label trm-category trm-mb-20">
-                <a href=" #.">
-                    未分类
-                </a>
-            </div>
-            <h5>
-                <a href="/2023/03/10/2/" class="trm-anima-link">
-                    利用cloudflare实现浏览器访问本地手机Linux
-                </a>
-            </h5>
-            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
-            <ul class="trm-card-data trm-label">
-                <li>23/03/10</li>
-                <li>15:20</li>
-                
-                
-            </ul>
+    </div>
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-clock trm-icon"></i><br>
+            15:20
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div id="post-author" class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-user trm-icon"></i><br>
+            zhh
         </div>
     </div>
 </div>
+<div class="trm-card ">
+    <article id="article-container" class="trm-publication">
+    <p>虽然上次用cloudflaerd穿透后何以远程ssh，但是需要下载文件配置本地文件，这样就显得很不方便</p>
+<p>如果是别人的电脑，难道当着别人的面下文件改东西吗</p>
+<p>所以这次我们来用cloudflare的浏览器ssh链接</p>
+<p>首先登陆cloudflare，点击你的域名进入这个界面</p>
+<p><img src="https://file.fishpi.cn/2022/12/721518ce1b1de1ea7d3ba3728e62f2f-f7d644c0.png" alt="721518ce1b1de1ea7d3ba3728e62f2f.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>点击Access</p>
+<p><img src="https://file.fishpi.cn/2022/12/32fdf6126d41f3081f73921b7b9f172-a5543991.png" alt="32fdf6126d41f3081f73921b7b9f172.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>点击右边的Launch Zero Trust进入这个页面</p>
+<p><img src="https://file.fishpi.cn/2022/12/da18ee93553ac45620e6a21de368fa7-0b5b460e.png" alt="da18ee93553ac45620e6a21de368fa7.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>点击Access的Applications，这里需要创建一个，选第一个就行</p>
+<p><img src="https://file.fishpi.cn/2022/12/4505f87057f731543bd5d8da099f7ff-12f31038.png" alt="4505f87057f731543bd5d8da099f7ff.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>然后填名称和你穿透出来的ssh</p>
+<p><img src="https://file.fishpi.cn/2022/12/38cbdec26a0938f14b7908793ca78b0-431cfcb3.png" alt="38cbdec26a0938f14b7908793ca78b0.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>然后点右上角next</p>
+<p>这个填Policy name和选择验证方式</p>
+<p><img src="https://file.fishpi.cn/2022/12/6284722f2c8f8587a534c043e7195c5-084a7bd7.png" alt="6284722f2c8f8587a534c043e7195c5.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>然后点next，往下拉在这里选择ssh</p>
+<p><img src="https://file.fishpi.cn/2022/12/6ca18a41551368e5cb45d9368d47550-af7384aa.png" alt="6ca18a41551368e5cb45d9368d47550.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>然后拉上去，点击Add application</p>
+<p><img src="https://file.fishpi.cn/2022/12/233e4492f4854208ebaae1c2d25db5c-6c54d9c3.png" alt="233e4492f4854208ebaae1c2d25db5c.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>完成创建</p>
+<p>打开试试有没有成功</p>
+<p><img src="https://file.fishpi.cn/2022/12/ff315c2e23d8b8c845a1c124380d1a4-51817165.png" alt="ff315c2e23d8b8c845a1c124380d1a4.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>输入邮箱，获取验证码，填入</p>
+<p><img src="https://file.fishpi.cn/2022/12/0fe6560e206c689dc189a8fe4f0960f-c7302784.png" alt="0fe6560e206c689dc189a8fe4f0960f.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>然后输入你ssh的用户名</p>
+<p><img src="https://file.fishpi.cn/2022/12/01aaf61f7c79197902964b6675be944-b6b7acd3.png" alt="01aaf61f7c79197902964b6675be944.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>然后输入密码</p>
+<p><img src="https://file.fishpi.cn/2022/12/90a695d2823e710d6856c9a799d2a54-8578ac64.png" alt="90a695d2823e710d6856c9a799d2a54.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>登录成功，并且可以正常操作</p>
+<p><img src="https://file.fishpi.cn/2022/12/248ce9eb61d0b705927fda494c82d12-2a64c335.png" alt="248ce9eb61d0b705927fda494c82d12.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="https://file.fishpi.cn/2022/12/5ed81fbcd25a2d45b138e909bcce563-6a795105.png" alt="5ed81fbcd25a2d45b138e909bcce563.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+
+</article>
+    
+    
+</div>
+<div id="post-next-prev" class="row">
+    <div class="col-lg-12">
+        <!-- title -->
+        <h5 class="trm-title-with-divider">
+            其他文章
+            <span data-number="02"></span>
+        </h5>
+    </div>
+    
     
         <div class="col-lg-6">
     <div class="trm-blog-card trm-scroll-animation" data-scroll data-scroll-offset="40">
@@ -417,44 +451,10 @@
     </div>
 </div>
     
-        <div class="col-lg-6">
-    <div class="trm-blog-card trm-scroll-animation" data-scroll data-scroll-offset="40">
-        <a href="/2023/03/08/hello-world/" class="trm-cover-frame trm-anima-link">
-            
-            
-                <img alt="cover" class="no-fancybox" src="/img/block.jpg">
-            
-        </a>
-        
-        <div class="trm-card-descr">
-            <div class="trm-label trm-category trm-mb-20">
-                <a href=" #.">
-                    未分类
-                </a>
-            </div>
-            <h5>
-                <a href="/2023/03/08/hello-world/" class="trm-anima-link">
-                    Hello World
-                </a>
-            </h5>
-            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
-            <ul class="trm-card-data trm-label">
-                <li>23/03/08</li>
-                <li>18:25</li>
-                
-                
-            </ul>
-        </div>
-    </div>
 </div>
+
     
-</div>
-<!-- newest publications end -->
 
-
-    <div class="trm-pagination">
-        <span class="page-number current">1</span>
-    </div>
 
 
                     <div class="trm-divider footer-divider"></div>
@@ -518,6 +518,10 @@
 
             <div class="trm-fixed-container" data-scroll data-scroll-sticky data-scroll-target=".locomotive-scroll__sticky-target" data-scroll-offset="-10">
     
+        <div class="trm-fixed-btn" data-title="阅读模式" onclick="asyncFun.switchReadMode()">
+            <i class="iconfont fas fa-book-reader"></i>
+        </div>
+    
     
     <div id="trm-back-top" class="trm-fixed-btn" data-title="回到顶部">
         <i class="iconfont fas fa-arrow-up"></i>
@@ -556,6 +560,10 @@
     
 
     <!-- 评论插件 -->
+    
+        
+
+        
     
 
 
